@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Message;
 use App\Models\Usermail;
 use Illuminate\Http\Request;
+use Illuminate\Mail\Mailer;
 use SimpleXLSX;
 
 class SendmailController extends Controller
