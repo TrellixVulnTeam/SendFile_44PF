@@ -51,7 +51,7 @@
 
                             <div class="form-group">
                                 <label for="emailList">Email List</label>
-                                <select name="emailList[]" id="emailList" multiple>
+                                <select name="emailList[]" id="emailList" multiple required>
                                     @for($i=0;$i<count($allMailers);$i++)
                                         <option value="{{ $allMailers[$i] }}">{{ $allMailers[$i] }}</option>
                                     @endfor
