@@ -97,9 +97,10 @@ class SendmailController extends Controller
                     continue ;
                 }
 
-                $counter = Usermail::where('email', $emapData[0])->count();
+                $categoryId = $emapData[5] ? $emapData[5] : 3 ;
+                $sameCount = Usermail::where("category_id", $categoryId)->where('email', $emapData[0])->count();
 
-                if($counter > 0) {
+                if($sameCount > 0) {
                     continue ;
                 }
 
@@ -109,6 +110,7 @@ class SendmailController extends Controller
                 $mailer->lastName = $emapData[2] ? $emapData[2] : "";
                 $mailer->birth = $emapData[3] ? $emapData[3] : "";
                 $mailer->contactNumber = $emapData[4] ? $emapData[4] : "";
+                $mailer->category_id = $categoryId;
                 $mailer->save();
             }
             $message = "Upload mails via bulk successfully.";
