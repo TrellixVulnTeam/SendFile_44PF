@@ -124,13 +124,15 @@ class SendmailController extends Controller
     public function getMailer(Request $request) {
         $active = 'mailinfo';
         $mailer = Usermail::find($request->mailer_id);
-        return view('admin.mailinfo.edit', compact('active', 'mailer'));
+        $allCategories = Mailercategory::where("id", "<>", 2)->get();
+        return view('admin.mailinfo.edit', compact('active', 'mailer', 'allCategories'));
     }
 
     public function updateMailer(Request $request) {
 
         $needFields = [
-            'email' => "required"
+            'email' => "required",
+            'category_id' => "required"
         ];
 
         $validated = $request->validate($needFields);
@@ -149,6 +151,19 @@ class SendmailController extends Controller
 
         if($request->contactNumber) {
             $validated['contactNumber'] = $request->contactNumber;
+        }
+
+        $oldMailer = Usermail::find($request->mailer_id);
+
+        $flag = false;
+
+        if($oldMailer->email != $request->email || $oldMailer->category_id != $request->category_id) {
+            $flag = true;
+        }
+        $sameMailerCount = Usermail::where('email', $request->email)->where('category_id', $request->category_id)->count();
+
+        if($sameMailerCount > 0 && $flag) {
+            return redirect()->route('mailinfo.index')->with('failure', "Mailer who is same email and category is unique.");
         }
 
         if (Usermail::where('id', $request->mailer_id)->update($validated)) {
@@ -209,12 +224,20 @@ class SendmailController extends Controller
                 $message->from($this->admin_email)->to($mailerLists)->subject('SelecitiveTrades');
             });
 
+            $notRecipients = Mail::failures();
+
+            $notRecipientsHtml = "<p class='color:red'>" . json_decode($notRecipients) . "</p>";
+
+            $contents .= $notRecipientsHtml;
+
             $newMessage = new Message();
             $newMessage->fromEmail = $this->admin_email;
             $newMessage->toEmail = json_encode($mailerLists);
             $newMessage->contents = $contents;
             $newMessage->subject = $request->subject;
             $newMessage->save();
+
+
 
             return redirect()->route('mailinfo.send-message')->with('success', "Bulk Mail success");
 
