@@ -206,7 +206,7 @@ class SendmailController extends Controller
 
             Mail::send('emails.mailer', ['contents' => $contents], function($message) use ($mailerLists)
             {
-                $message->to($mailerLists)->subject('SelecitiveTrades');
+                $message->from($this->admin_email)->to($mailerLists)->subject('SelecitiveTrades');
             });
 
             $newMessage = new Message();
