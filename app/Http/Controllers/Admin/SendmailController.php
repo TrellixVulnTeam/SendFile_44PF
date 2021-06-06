@@ -226,7 +226,7 @@ class SendmailController extends Controller
 
             $notRecipients = Mail::failures();
 
-            $notRecipientsHtml = "<p class='color:red'>" . json_decode($notRecipients) . "</p>";
+            $notRecipientsHtml = "<p class='color:red'>" . json_encode($notRecipients) . "</p>";
 
             $contents .= $notRecipientsHtml;
 
@@ -236,8 +236,6 @@ class SendmailController extends Controller
             $newMessage->contents = $contents;
             $newMessage->subject = $request->subject;
             $newMessage->save();
-
-
 
             return redirect()->route('mailinfo.send-message')->with('success', "Bulk Mail success");
 
