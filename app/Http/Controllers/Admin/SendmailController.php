@@ -220,28 +220,28 @@ class SendmailController extends Controller
             $mailerLists = array_values($multiEmails);
 
             $realFile = null;
+            $filePath = null;
+            $isFile = false;
 
             if(file_exists($request->file('fileUrl'))) {
 
                 $realFile = $request->file('fileUrl');
                 $extension = $realFile->getClientOriginalExtension();
 
-                $destinationPath = 'upload/mail_attachment';
+                $destinationPath = 'upload/attachment';
                 $fileName = date("YmdHis").".".$extension;
 
                 $realFile->move($destinationPath, $fileName);
                 $filePath = $destinationPath . '/' . $fileName;
+                $isFile = true;
             }
 
-            Mail::send('emails.mailer', ['contents' => $contents], function($message) use ($mailerLists, $realFile)
+            Mail::send('emails.mailer', ['contents' => $contents], function($message) use ($mailerLists, $isFile, $filePath)
             {
                 $message->from($this->admin_email)->to($mailerLists)->subject('SelecitiveTrades');
 
-                if($realFile != null) {
-                    $message->attach($realFile->getRealPath(), array(
-                            'as' => $realFile->getClientOriginalName(), // If you want you can chnage original name to custom name
-                            'mime' => $realFile->getMimeType())
-                    );
+                if($isFile) {
+                    $message->attach(asset('/').$filePath);
                 }
             });
 
@@ -256,6 +256,11 @@ class SendmailController extends Controller
             $newMessage->toEmail = json_encode($mailerLists);
             $newMessage->contents = $contents;
             $newMessage->subject = $request->subject;
+            if($isFile)
+            {
+                $newMessage->fileUrl = $filePath;
+            }
+
             $newMessage->save();
 
             return redirect()->route('mailinfo.send-message')->with('success', "Bulk Mail success");
