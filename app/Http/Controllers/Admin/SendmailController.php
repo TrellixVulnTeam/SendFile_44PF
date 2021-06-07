@@ -238,7 +238,7 @@ class SendmailController extends Controller
 
             Mail::send('emails.mailer', ['contents' => $contents], function($message) use ($mailerLists, $isFile, $filePath)
             {
-                $message->from($this->admin_email)->to("support@selectivetrades.com")->bcc($mailerLists)->subject('SelecitiveTrades');
+                $message->from($this->admin_email)->bcc($mailerLists)->subject('SelecitiveTrades');
                 if($isFile) {
                     $message->attach(asset('/').$filePath);
                 }
