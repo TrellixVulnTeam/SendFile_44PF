@@ -35,13 +35,15 @@ class SendmailController extends Controller
     public function createMailer(Request $request) {
 
         $active = 'mailinfo';
-        return view('admin.mailinfo.create', compact('active'));
+        $allMailCategories = Mailercategory::where('id', '<>', 2)->get();
+        return view('admin.mailinfo.create', compact('active', 'allMailCategories'));
     }
 
     public function storeMailer(Request $request) {
 
         $needFields = [
-            'email' => "required|unique:mailers"
+            'email' => "required|unique:mailers",
+            'category_id' =>'required'
         ];
 
         $validated = $request->validate($needFields);
