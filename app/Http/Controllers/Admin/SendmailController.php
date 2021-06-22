@@ -110,7 +110,7 @@ class SendmailController extends Controller
                 $mailer->email = $emapData[0];
                 $mailer->firstName = $emapData[1] ? $emapData[1] : "";
                 $mailer->lastName = $emapData[2] ? $emapData[2] : "";
-                $mailer->birth = $emapData[3] ? $emapData[3] : "";
+                $mailer->birth = $emapData[3] ? $emapData[3] : date("Y-m-d");
                 $mailer->contactNumber = $emapData[4] ? $emapData[4] : "";
                 $mailer->category_id = $categoryId;
                 $mailer->save();
