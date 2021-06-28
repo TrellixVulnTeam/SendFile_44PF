@@ -126,7 +126,6 @@
 <script src="{{ asset('bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js') }}"></script>
 <script>
     $(function () {
-        $('#searchable_table').DataTable();
         $(document).on("click",".remote-item",function(){
             $(this).closest('.feature-item').remove();
         });

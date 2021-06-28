@@ -139,8 +139,36 @@
     ></script>
     <script>
         $(function () {
-            $('#searchable_table').DataTable()
+            $(document).on("click",".remote-item",function(){
+                $(this).closest('.feature-item').remove();
+            });
         });
+
+        //add new feature
+        function addFeature() {
+            var viewStr = '                                    <div class="input-group feature-item" style="margin-top: 5px">\n' +
+                '                                        <input type="text" class="form-control" placeholder="Enter feature content of Service">\n' +
+                '                                        <div class="input-group-btn">\n' +
+                '                                            <button type="button" class="btn btn-default remote-item">\n' +
+                '                                                <i class="fa fa-trash"></i>\n' +
+                '                                            </button>\n' +
+                '                                        </div>\n' +
+                '                                    </div>';
+
+            $("#features").append(viewStr);
+        }
+
+        function changeService() {
+            var serviceType = $("#service_type").val();
+
+            if(serviceType == 1) {
+                $("#service_url").addClass('none');
+            }
+
+            else {
+                $("#service_url").removeClass('none');
+            }
+        }
 
         function goBack() {
             history.go(-1);
