@@ -153,7 +153,7 @@
         //add new feature
         function addFeature() {
             var viewStr = '                                    <div class="input-group feature-item" style="margin-top: 5px">\n' +
-                '                                        <input type="text" class="form-control" placeholder="Enter feature content of Service">\n' +
+                '                                        <input type="text" name="features[]" class="form-control" placeholder="Enter feature content of Service">\n' +
                 '                                        <div class="input-group-btn">\n' +
                 '                                            <button type="button" class="btn btn-default remote-item">\n' +
                 '                                                <i class="fa fa-trash"></i>\n' +
