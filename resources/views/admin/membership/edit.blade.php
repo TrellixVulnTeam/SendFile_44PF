@@ -7,6 +7,12 @@
 @section('underhead')
     <link rel="stylesheet"
             href="{{ asset('bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css') }}">
+
+    <style>
+        .none {
+            display: none;
+        }
+    </style>
 @endsection
 
 @section('main')
