@@ -99,7 +99,9 @@
             nonSelectedText: 'Select Framework',
             enableFiltering: true,
             enableCaseInsensitiveFiltering: true,
-            buttonWidth:'400px'
+            buttonWidth:'400px',
+            selectAllText: ' Select All',
+            includeSelectAllOption: true,
         });
 
         CKEDITOR.replace( 'accept-editor' );
