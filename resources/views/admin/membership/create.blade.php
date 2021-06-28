@@ -45,7 +45,7 @@
                                 </div>
                                 <p class="text-primary">Pls click for adding a new feature of service. <i class="fa fa-plus-circle fa-lg" onclick="addFeature()"></i></p>
                                 <div id="features">
-                                    <div class="input-group feature-item">
+                                    <div class="input-group feature-item" style="margin-top: 5px">
                                         <input type="text" class="form-control" name="features[]" placeholder="Enter feature content of Service">
                                         <div class="input-group-btn">
                                             <button type="button" class="btn btn-default remote-item">
@@ -76,7 +76,7 @@
                                 <div class="form-group">
                                     <label class="small mb-1" for="inputFirstName">Amount</label>
                                     <input class="form-control py-4" id="inputFirstName" type="number" name="amount"
-                                           placeholder="Enter Amount" min="0"/>
+                                           placeholder="Enter Amount" min="0" step="0.01"/>
                                     @if ($errors->has('amount'))
                                         <small class="help-block text-danger">
                                             {{ $errors->first('amount') }}
