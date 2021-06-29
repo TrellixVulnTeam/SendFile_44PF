@@ -50,7 +50,7 @@
                                         @if($features)
                                             @for($i=0;$i<count($features);$i++)
                                                 <div class="input-group feature-item" style="margin-top: 5px">
-                                                    <input type="text" class="form-control" value="{{ $features[$i] }}">
+                                                    <input type="text" class="form-control" name="features[]" value="{{ $features[$i] }}">
                                                     <div class="input-group-btn">
                                                         <button type="button" class="btn btn-default remote-item">
                                                             <i class="fa fa-trash"></i>
