@@ -265,11 +265,13 @@ class SendmailController extends Controller
 
             $newMessage->save();
 
-            return redirect()->route('mailinfo.send-message')->with('success', "Bulk Mail success");
+            return redirect()->route('mailinfo.index')->with('success', "Bulk Mail success");
 
         } catch (\Exception $e) {
 
-            return redirect()->back()->with('success', 'Error' . $e->getMessage());
+            return $e->getMessage();
+
+            return redirect('mailinfo.send-message')->with('failure', $e->getMessage());
         }
     }
 
