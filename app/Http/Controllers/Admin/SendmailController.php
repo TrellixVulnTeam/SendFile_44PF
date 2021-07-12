@@ -269,8 +269,6 @@ class SendmailController extends Controller
 
         } catch (\Exception $e) {
 
-            return $e->getMessage();
-
             return redirect('mailinfo.send-message')->with('failure', $e->getMessage());
         }
     }
