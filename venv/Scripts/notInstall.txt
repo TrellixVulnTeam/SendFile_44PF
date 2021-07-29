@@ -1,0 +1,6 @@
+videodecodeqr
+os
+re
+tkinter
+glob
+videodecodeqr
